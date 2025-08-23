@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Yash - Solar System Portfolio</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      background: #000;
+      color: white;
+      font-family: 'Poppins', sans-serif;
+      overflow-x: hidden;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Navbar */
+    .navbar {
+      background-color: rgba(0, 0, 0, 0.7);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      padding: 15px 0;
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid #333;
+    }
+    
+    .navbar-brand {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #ff6b35 !important;
+      text-shadow: 0 0 10px rgba(255, 107, 53, 0.7);
+    }
+    
+    .navbar-nav .nav-link {
+      color: white !important;
+      margin: 0 12px;
+      position: relative;
+      transition: 0.3s;
+      font-weight: 500;
+    }
+    
+    .navbar-nav .nav-link:hover {
+      color: #ff6b35 !important;
+      transform: translateY(-3px);
+    }
+    
+    .navbar-nav .nav-link::after {
+      content: "";
+      position: absolute;
+      width: 0;
+      height: 2px;
+      background: #ff6b35;
+      left: 0;
+      bottom: -5px;
+      transition: 0.4s;
+    }
+    
+    .navbar-nav .nav-link:hover::after {
+      width: 100%;
+    }
+
+    /* Main content */
+    .main-content {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Home Section */
+    .home-content {
+      text-align: center;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 20px;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* Sun (Profile Image) */
+    .sun {
+      position: relative;
+      margin: 0 auto 60px;
+      width: 200px;
+      height: 200px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 10;
+    }
+    
+    .profile-img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+      box-shadow: 0 0 50px #ff6b35, 0 0 100px rgba(255, 107, 53, 0.7);
+      animation: sun-pulse 4s infinite alternate;
+      border: 4px solid #ff6b35;
+    }
+    
+    @keyframes sun-pulse {
+      0% { 
+        box-shadow: 0 0 50px #ff6b35, 0 0 100px rgba(255, 107, 53, 0.7); 
+      }
+      100% { 
+        box-shadow: 0 0 70px #ff6b35, 0 0 130px rgba(255, 107, 53, 0.9); 
+      }
+    }
+
+    /* Solar System */
+    .solar-system {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 600px;
+      height: 600px;
+      z-index: 1;
+    }
+    
+    /* Orbit paths */
+    .orbit {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      border-radius: 50%;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .orbit-1 {
+      width: 320px;
+      height: 320px;
+    }
+    
+    .orbit-2 {
+      width: 420px;
+      height: 420px;
+    }
+    
+    .orbit-3 {
+      width: 520px;
+      height: 520px;
+    }
+    
+    .orbit-4 {
+      width: 280px;
+      height: 280px;
+    }
+    
+    /* Planets (Social Icons) */
+    .planet {
+      position: absolute;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transform: translate(-50%, -50%);
+      font-size: 20px;
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.6);
+      z-index: 5;
+      top: 0;
+      left: 50%;
+      animation-timing-function: linear;
+      animation-iteration-count: infinite;
+      transition: all 0.3s ease;
+    }
+    
+    /* Different styles for each planet */
+    .planet-1 {
+      background: linear-gradient(135deg, #405de6, #5851db, #833ab4, #c13584, #e1306c, #fd1d1d);
+      animation: orbit-clockwise-1 15s infinite linear;
+      color: white;
+    }
+    
+    .planet-2 {
+      background: linear-gradient(135deg, #25D366, #128C7E, #075E54);
+      animation: orbit-clockwise-2 12s infinite linear;
+      color: white;
+    }
+    
+    .planet-3 {
+      background: linear-gradient(135deg, #0077B5, #00A0DC, #00A0DC);
+      animation: orbit-clockwise-3 20s infinite linear;
+      color: white;
+    }
+    
+    .planet-4 {
+      background: linear-gradient(135deg, #333, #555, #777);
+      animation: orbit-clockwise-4 18s infinite linear;
+      color: white;
+    }
+    
+    .planet:hover {
+      transform: translate(-50%, -50%) scale(1.3);
+      box-shadow: 0 0 25px rgba(255, 255, 255, 0.9);
+      z-index: 6;
+    }
+
+    /* Orbital animations */
+    @keyframes orbit-clockwise-1 {
+      0% {
+        transform: translate(-50%, -50%) rotate(0deg) translateX(160px) rotate(0deg);
+      }
+      100% {
+        transform: translate(-50%, -50%) rotate(360deg) translateX(160px) rotate(-360deg);
+      }
+    }
+    
+    @keyframes orbit-clockwise-2 {
+      0% {
+        transform: translate(-50%, -50%) rotate(90deg) translateX(210px) rotate(-90deg);
+      }
+      100% {
+        transform: translate(-50%, -50%) rotate(450deg) translateX(210px) rotate(-450deg);
+      }
+    }
+    
+    @keyframes orbit-clockwise-3 {
+      0% {
+        transform: translate(-50%, -50%) rotate(45deg) translateX(260px) rotate(-45deg);
+      }
+      100% {
+        transform: translate(-50%, -50%) rotate(405deg) translateX(260px) rotate(-405deg);
+      }
+    }
+    
+    @keyframes orbit-clockwise-4 {
+      0% {
+        transform: translate(-50%, -50%) rotate(135deg) translateX(140px) rotate(-135deg);
+      }
+      100% {
+        transform: translate(-50%, -50%) rotate(495deg) translateX(140px) rotate(-495deg);
+      }
+    }
+
+    /* Content */
+    .content {
+      padding: 30px;
+      max-width: 600px;
+      margin: 0 auto;
+      background: rgba(0, 0, 0, 0.7);
+      border-radius: 20px;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 107, 53, 0.3);
+      box-shadow: 0 0 30px rgba(255, 107, 53, 0.2);
+    }
+    
+    .content h1 {
+      font-weight: 800;
+      font-size: 2.8rem;
+      color: white;
+      margin-bottom: 10px;
+      text-shadow: 0 0 15px rgba(255, 107, 53, 0.5);
+    }
+    
+    .content h3 {
+      font-weight: 600;
+      font-size: 1.6rem;
+      color: #ff6b35;
+      margin-bottom: 25px;
+    }
+    
+    .content p {
+      font-size: 1.1rem;
+      margin-bottom: 25px;
+      color: #ccc;
+      line-height: 1.6;
+    }
+
+    /* Hire Me Button */
+    .hire-btn {
+      background: #ff6b35;
+      color: white;
+      border: none;
+      padding: 12px 32px;
+      font-size: 1.1rem;
+      border-radius: 30px;
+      box-shadow: 0 0 15px rgba(255, 107, 53, 0.7);
+      transition: all 0.4s ease;
+      text-decoration: none;
+      display: inline-block;
+      margin-top: 20px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      position: relative;
+      overflow: hidden;
+      z-index: 1;
+    }
+    
+    .hire-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: 0.5s;
+      z-index: -1;
+    }
+    
+    .hire-btn:hover {
+      background: black;
+      color: #ff6b35;
+      border: 2px solid #ff6b35;
+      box-shadow: 0 0 25px #ff6b35;
+      transform: translateY(-5px);
+    }
+    
+    .hire-btn:hover::before {
+      left: 100%;
+    }
+
+    /* Stars background */
+    .stars {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+    }
+    
+    .star {
+      position: absolute;
+      background: white;
+      border-radius: 50%;
+      animation: twinkle 5s infinite;
+    }
+    
+    @keyframes twinkle {
+      0%, 100% { opacity: 0.2; }
+      50% { opacity: 1; }
+    }
+    
+    /* Shooting stars */
+    .shooting-star {
+      position: absolute;
+      height: 2px;
+      background: linear-gradient(90deg, white, transparent);
+      animation: shooting 3s infinite;
+      opacity: 0;
+    }
+    
+    @keyframes shooting {
+      0% {
+        opacity: 0;
+        transform: translateX(0) translateY(0);
+      }
+      10% {
+        opacity: 1;
+      }
+      100% {
+        opacity: 0;
+        transform: translateX(300px) translateY(300px);
+      }
+    }
+    
+    /* Footer */
+    .footer {
+      background: rgba(0, 0, 0, 0.8);
+      padding: 20px 0;
+      text-align: center;
+      border-top: 1px solid #333;
+      z-index: 2;
+    }
+    
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .sun {
+        width: 150px;
+        height: 150px;
+      }
+      
+      .solar-system {
+        width: 400px;
+        height: 400px;
+      }
+      
+      .orbit-1 {
+        width: 220px;
+        height: 220px;
+      }
+      
+      .orbit-2 {
+        width: 300px;
+        height: 300px;
+      }
+      
+      .orbit-3 {
+        width: 380px;
+        height: 380px;
+      }
+      
+      .orbit-4 {
+        width: 180px;
+        height: 180px;
+      }
+      
+      @keyframes orbit-clockwise-1 {
+        0% {
+          transform: translate(-50%, -50%) rotate(0deg) translateX(110px) rotate(0deg);
+        }
+        100% {
+          transform: translate(-50%, -50%) rotate(360deg) translateX(110px) rotate(-360deg);
+        }
+      }
+      
+      @keyframes orbit-clockwise-2 {
+        0% {
+          transform: translate(-50%, -50%) rotate(90deg) translateX(150px) rotate(-90deg);
+        }
+        100% {
+          transform: translate(-50%, -50%) rotate(450deg) translateX(150px) rotate(-450deg);
+        }
+      }
+      
+      @keyframes orbit-clockwise-3 {
+        0% {
+          transform: translate(-50%, -50%) rotate(45deg) translateX(190px) rotate(-45deg);
+        }
+        100% {
+          transform: translate(-50%, -50%) rotate(405deg) translateX(190px) rotate(-405deg);
+        }
+      }
+      
+      @keyframes orbit-clockwise-4 {
+        0% {
+          transform: translate(-50%, -50%) rotate(135deg) translateX(90px) rotate(-135deg);
+        }
+        100% {
+          transform: translate(-50%, -50%) rotate(495deg) translateX(90px) rotate(-495deg);
+        }
+      }
+      
+      .content h1 {
+        font-size: 2.2rem;
+      }
+      
+      .content h3 {
+        font-size: 1.3rem;
+      }
+      
+      .planet {
+        width: 40px;
+        height: 40px;
+        font-size: 16px;
+      }
+    }
+    
+    @media (max-width: 576px) {
+      .sun {
+        width: 120px;
+        height: 120px;
+      }
+      
+      .solar-system {
+        width: 300px;
+        height: 300px;
+      }
+      
+      .orbit-1 {
+        width: 160px;
+        height: 160px;
+      }
+      
+      .orbit-2 {
+        width: 220px;
+        height: 220px;
+      }
+      
+      .orbit-3 {
+        width: 280px;
+        height: 280px;
+      }
+      
+      .orbit-4 {
+        width: 130px;
+        height: 130px;
+      }
+      
+      @keyframes orbit-clockwise-1 {
+        0% {
+          transform: translate(-50%, -50%) rotate(0deg) translateX(80px) rotate(0deg);
+        }
+        100% {
+          transform: translate(-50%, -50%) rotate(360deg) translateX(80px) rotate(-360deg);
+        }
+      }
+      
+      @keyframes orbit-clockwise-2 {
+        0% {
+          transform: translate(-50%, -50%) rotate(90deg) translateX(110px) rotate(-90deg);
+        }
+        100% {
+          transform: translate(-50%, -50%) rotate(450deg) translateX(110px) rotate(-450deg);
+        }
+      }
+      
+      @keyframes orbit-clockwise-3 {
+        0% {
+          transform: translate(-50%, -50%) rotate(45deg) translateX(140px) rotate(-45deg);
+        }
+        100% {
+          transform: translate(-50%, -50%) rotate(405deg) translateX(140px) rotate(-405deg);
+        }
+      }
+      
+      @keyframes orbit-clockwise-4 {
+        0% {
+          transform: translate(-50%, -50%) rotate(135deg) translateX(65px) rotate(-135deg);
+        }
+        100% {
+          transform: translate(-50%, -50%) rotate(495deg) translateX(65px) rotate(-495deg);
+        }
+      }
+      
+      .content h1 {
+        font-size: 1.8rem;
+      }
+      
+      .content h3 {
+        font-size: 1.1rem;
+      }
+      
+      .planet {
+        width: 35px;
+        height: 35px;
+        font-size: 14px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark">
+    <div class="container">
+      <a class="navbar-brand" href="#">Yash</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link active" href="#">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">About Me</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Skills</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Projects</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <div class="main-content">
+    <!-- Stars background -->
+    <div class="stars" id="stars"></div>
+    
+    <!-- Shooting stars -->
+    <div id="shooting-stars"></div>
+    
+    <div class="home-content">
+      <!-- Sun (Profile Image) -->
+      <div class="sun">
+        <img src="image/1739671061906.jpg" alt="Profile" class="profile-img">
+      </div>
+      
+      <!-- Solar System with orbiting planets -->
+      
+        
+        <a href="#" class="planet planet-1"><i class="fab fa-instagram"></i></a>
+        <a href="#" class="planet planet-2"><i class="fab fa-whatsapp"></i></a>
+        <a href="#" class="planet planet-3"><i class="fab fa-linkedin-in"></i></a>
+        <a href="#" class="planet planet-4"><i class="fab fa-github"></i></a>
+      </div>
+      
+      <!-- Content -->
+      <div class="content">
+        <h1>Bansode Yash</h1>
+        <h3>Java Full Stack Developer</h3>
+        
+        <a href="#" class="hire-btn">Hire Me</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; 2023 Yash. All Rights Reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Create stars for the background
+    document.addEventListener('DOMContentLoaded', function() {
+      const starsContainer = document.getElementById('stars');
+      const starsCount = 200;
+      
+      for (let i = 0; i < starsCount; i++) {
+        const star = document.createElement('div');
+        star.classList.add('star');
+        
+        // Random size between 1-3px
+        const size = Math.random() * 2 + 1;
+        star.style.width = `${size}px`;
+        star.style.height = `${size}px`;
+        
+        // Random position
+        star.style.top = `${Math.random() * 100}%`;
+        star.style.left = `${Math.random() * 100}%`;
+        
+        // Random animation delay
+        star.style.animationDelay = `${Math.random() * 5}s`;
+        
+        starsContainer.appendChild(star);
+      }
+      
+      // Create shooting stars
+      const shootingStarsContainer = document.getElementById('shooting-stars');
+      
+      function createShootingStar() {
+        const shootingStar = document.createElement('div');
+        shootingStar.classList.add('shooting-star');
+        
+        // Random position
+        const startX = Math.random() * 100;
+        const startY = Math.random() * 100;
+        shootingStar.style.left = `${startX}%`;
+        shootingStar.style.top = `${startY}%`;
+        
+        // Random width
+        const width = Math.random() * 100 + 50;
+        shootingStar.style.width = `${width}px`;
+        
+        // Random animation delay
+        shootingStar.style.animationDelay = `${Math.random() * 5}s`;
+        
+        shootingStarsContainer.appendChild(shootingStar);
+        
+        // Remove after animation completes
+        setTimeout(() => {
+          shootingStar.remove();
+        }, 3000);
+      }
+      
+      // Create shooting stars periodically
+      setInterval(createShootingStar, 3000);
+      
+      // Create initial shooting stars
+      for (let i = 0; i < 3; i++) {
+        setTimeout(createShootingStar, i * 1000);
+      }
+    });
+  </script>
+  
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
